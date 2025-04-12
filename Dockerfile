@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine3.15 as builder
+FROM golang:1.24.2-alpine3.21 as builder
 LABEL boringproxy=builder
 
 ARG VERSION
@@ -22,7 +22,7 @@ RUN cd cmd/boringproxy && CGO_ENABLED=0 GOOS=${GOOS} GOARCH=${GOARCH} \
 	go build -ldflags "-X main.Version=${VERSION}" \
 	-o boringproxy
 
-FROM scratch
+FROM alpine:3.21
 EXPOSE 80 443
 WORKDIR /storage
 
